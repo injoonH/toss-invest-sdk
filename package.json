@@ -1,0 +1,26 @@
+{
+  "name": "toss-invest-sdk",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for the official Toss Invest Open API.",
+  "keywords": [
+    "toss",
+    "tossinvest"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/injoonH/toss-invest-sdk.git"
+  },
+  "license": "MIT",
+  "author": "Injoon Hwang <yuwol036@gmail.com>",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "packageManager": "pnpm@10.34.3",
+  "engines": {
+    "node": ">=24.17.0",
+    "pnpm": "10.34.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
