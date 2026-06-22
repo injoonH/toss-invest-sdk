@@ -1,0 +1,17 @@
+# Dependency directories
+node_modules/
+
+# Build output
+dist/
+
+# Output of 'npm pack'
+*.tgz
+
+# Coverage directories
+coverage/
+
+# Environment variables
+.env
+
+# Misc
+.DS_Store
