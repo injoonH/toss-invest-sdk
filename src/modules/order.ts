@@ -31,7 +31,7 @@ export type OrderCreateRequest = OrderCreateQuantityBased | OrderCreateAmountBas
 
 export interface OrderResponse {
   orderId: string
-  clientOrderid: string | null
+  clientOrderId: string | null
 }
 
 export interface OrderModifyRequest {

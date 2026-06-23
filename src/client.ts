@@ -43,7 +43,9 @@ export class TossClient {
               this.accessToken = null
               const newToken = await this.getValidToken()
               request.headers.set('Authorization', `Bearer ${newToken}`)
+              return this.http(request)
             }
+            return response
           },
         ],
       },

@@ -37,7 +37,7 @@ export interface ProfitLoss {
 }
 
 export interface HoldingsItem {
-  averagePurchasaePrice: string
+  averagePurchasePrice: string
   cost: Cost
   currency: Currency
   dailyProfitLoss: DailyProfitLoss
@@ -81,6 +81,7 @@ export class AssetModule {
   async holdings(options: AssetHoldingsOptions): Promise<HoldingsOverview> {
     const { result } = await this.http
       .get('api/v1/holdings', {
+        searchParams: options.symbol ? { symbol: options.symbol } : {},
         headers: {
           'X-Tossinvest-Account': String(options.accountSeq),
         },
