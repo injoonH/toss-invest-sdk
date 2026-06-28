@@ -32,6 +32,37 @@ export interface Trade {
   volume: string
 }
 
+export interface PriceLimitResponse {
+  currency: Currency
+  timestamp: string
+  lowerLimitPrice: string | null
+  upperLimitPrice: string | null
+}
+
+export type CandleInterval = '1m' | '1d'
+
+export interface CandlesOptions {
+  symbol: string
+  interval: CandleInterval
+  count?: number
+  before?: string
+  adjusted?: boolean
+}
+
+export interface Candle {
+  closePrice: string
+  currency: Currency
+  highPrice: string
+  lowPrice: string
+  openPrice: string
+  timestamp: string
+  volume: string
+}
+export interface CandlePageResponse {
+  candles: Candle[]
+  nextBefore: string | null
+}
+
 export class MarketDataModule {
   constructor(private http: typeof ky) {}
 
@@ -63,6 +94,31 @@ export class MarketDataModule {
         },
       })
       .json<{ result: Trade[] }>()
+    return result
+  }
+
+  async priceLimit(symbol: string): Promise<PriceLimitResponse> {
+    const { result } = await this.http
+      .get('api/v1/price-limits', {
+        searchParams: { symbol },
+      })
+      .json<{ result: PriceLimitResponse }>()
+    return result
+  }
+
+  async candles(options: CandlesOptions): Promise<CandlePageResponse> {
+    const { symbol, interval, count, before, adjusted } = options
+    const { result } = await this.http
+      .get('api/v1/candles', {
+        searchParams: {
+          symbol,
+          interval,
+          count,
+          before,
+          adjusted,
+        },
+      })
+      .json<{ result: CandlePageResponse }>()
     return result
   }
 }

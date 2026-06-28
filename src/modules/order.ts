@@ -89,6 +89,24 @@ export interface PaginatedOrderResponse {
   orders: Order[]
 }
 
+export interface BuyingPowerResponse {
+  cashBuyingPower: string
+  currency: Currency
+}
+
+export interface SellableQuantityResponse {
+  sellableQuantity: string
+}
+
+export type MarketCountry = 'KR' | 'US'
+
+export interface Commission {
+  commissionRate: string
+  marketCountry: MarketCountry
+  endDate: string | null
+  startDate: string | null
+}
+
 export interface OrderCreateOptions {
   accountSeq: number
   request: OrderCreateRequest
@@ -118,6 +136,20 @@ export interface OrderHistoryListOptions {
 export interface OrderHistoryDetailOptions {
   accountSeq: number
   orderId: string
+}
+
+export interface BuyingPowerOptions {
+  accountSeq: number
+  currency: Currency
+}
+
+export interface SellableQuantityOptions {
+  accountSeq: number
+  symbol: string
+}
+
+export interface CommissionOptions {
+  accountSeq: number
 }
 
 export class OrderModule {
@@ -179,6 +211,45 @@ export class OrderModule {
         },
       })
       .json<{ result: Order }>()
+    return result
+  }
+
+  async buyingPower(options: BuyingPowerOptions): Promise<BuyingPowerResponse> {
+    const { result } = await this.http
+      .get('api/v1/buying-power', {
+        searchParams: {
+          currency: options.currency,
+        },
+        headers: {
+          'X-Tossinvest-Account': String(options.accountSeq),
+        },
+      })
+      .json<{ result: BuyingPowerResponse }>()
+    return result
+  }
+
+  async sellableQuantity(options: SellableQuantityOptions): Promise<SellableQuantityResponse> {
+    const { result } = await this.http
+      .get('api/v1/sellable-quantity', {
+        searchParams: {
+          currency: options.symbol,
+        },
+        headers: {
+          'X-Tossinvest-Account': String(options.accountSeq),
+        },
+      })
+      .json<{ result: SellableQuantityResponse }>()
+    return result
+  }
+
+  async commissions(options: CommissionOptions): Promise<Commission[]> {
+    const { result } = await this.http
+      .get('api/v1/commissions', {
+        headers: {
+          'X-Tossinvest-Account': String(options.accountSeq),
+        },
+      })
+      .json<{ result: Commission[] }>()
     return result
   }
 }
