@@ -13,11 +13,26 @@
   "license": "MIT",
   "author": "Injoon Hwang <yuwol036@gmail.com>",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "check": "biome check",
+    "check:ci": "biome ci",
+    "lint": "biome lint",
+    "format": "biome format",
+    "test": "vitest --coverage --typecheck",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "ky": "^2.0.2"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.0",
+    "@vitest/coverage-v8": "^4.1.9",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
   },
   "packageManager": "pnpm@10.34.3",
   "engines": {
-    "node": ">=24.17.0",
+    "node": ">=26.3.1",
     "pnpm": "10.34.3"
   },
   "publishConfig": {
